@@ -1,0 +1,6 @@
+[submodule "csavargo-web"]
+	path = csavargo-web
+	url = https://github.com/MayerAttila/csavargo-web.git
+[submodule "csavargo-api"]
+	path = csavargo-api
+	url = https://github.com/MayerAttila/csavargo-api.git
