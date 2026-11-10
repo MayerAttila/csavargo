@@ -1,0 +1,10 @@
+{
+  "name": "csavargo",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently --kill-others --names api,web \"pnpm --dir csavargo-api dev\" \"pnpm --dir csavargo-web dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.7"
+  }
+}

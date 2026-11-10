@@ -17,7 +17,21 @@ cp .env.example .env
 docker compose up -d
 ```
 
-Ez csak a PostgreSQL adatbázist indítja. A frontend és backend a saját README-je szerint indítható.
+Ez a PostgreSQL adatbázist indítja. A frontend és backend együttes indítása a gyökérkönyvtárból:
+
+```bash
+pnpm install
+pnpm --dir csavargo-api install
+pnpm --dir csavargo-web install
+pnpm dev
+```
+
+Első indítás előtt másold a `csavargo-api/.env.example` fájlt `csavargo-api/.env`,
+a `csavargo-web/.env.example` fájlt pedig `csavargo-web/.env.local` néven.
+
+A Codex **Run** művelete ugyanezt a `pnpm dev` parancsot futtatja. Frontend:
+http://localhost:3000 · Backend: http://localhost:3001/health.
+A `Ctrl+C` mindkét fejlesztői szervert leállítja.
 
 ## Design
 Brand: `#3B82F6` · Accent: `#10B981` · Light: `#F3F4F6` · Dark: `#222226`
