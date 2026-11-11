@@ -26,6 +26,8 @@ V9: auth request logs redact token path segments & query values.
 V10: auth forms POST; controls disabled before hydration; credentials never submitted through native GET fallback.
 V11: login/signup confirms fresh session before full `/attekintes` navigation; logout clears private queries before full `/belepes` navigation.
 V12: `(public)`/`(protected)` groups preserve URLs; protected layout + private-data pages require server session; memoization scoped to server request.
+V13: one app-wide React Hot Toast; shared success/error/loading/promise API; automatic safe query/mutation/page errors; field validation inline; navigation success notice one-shot/static code only; blocked storage never blocks navigation.
+V14: auth errors use known safe codes + HTTP status + operation-specific Hungarian fallback; origin/name/unavailable failures have machine codes; internal server messages never displayed.
 
 ## §T
 id|status|task|cites
@@ -36,6 +38,8 @@ T3|x|Mailpit/E2E/CI/docs; verify; commit repos + pointers|V1,V2,V3,V4,V5,V6,V7,V
 T4|x|auth form POST + hydration guard; SSR/browser regressions; leave uncommitted|V1,V10,I.web,I.auth
 T5|x|confirm session; fresh protected-page/logout navigation; leave uncommitted|V1,V7,V11,I.web,I.auth
 T6|x|split public/protected route groups; shared server guard; leave uncommitted|V1,V7,V12,I.web
+T7|x|app-wide notifications + query/mutation/page errors + cross-navigation auth notices; leave uncommitted|V5,V11,V13,I.web
+T8|x|specific auth errors in forms/toasts; backend error codes; leave uncommitted|V5,V14,I.auth,I.web
 
 ## §B
 id|date|cause|fix

@@ -79,7 +79,7 @@ test("complete Hungarian email auth lifecycle", async ({ page, request, browser 
   await page.goto("/elfelejtett-jelszo");
   await page.getByLabel("E-mail-cím", { exact: true }).fill(email);
   await page.getByRole("button", { name: "Hivatkozás küldése" }).click();
-  await expect(page.getByRole("status")).toContainText("Ha ehhez az e-mail-címhez tartozik fiók");
+  await expect(page.locator('form [role="status"]')).toContainText("Ha ehhez az e-mail-címhez tartozik fiók");
   await page.goto(await mailLink(request, email, "Új jelszó", "reset"));
   await expect(page).toHaveURL(/\/uj-jelszo\?token=/);
   await page.getByLabel("Jelszó", { exact: true }).fill(nextPassword);
@@ -92,7 +92,7 @@ test("complete Hungarian email auth lifecycle", async ({ page, request, browser 
   await page.getByLabel("E-mail-cím", { exact: true }).fill(email);
   await page.getByLabel("Jelszó", { exact: true }).fill(password);
   await page.getByRole("button", { name: "Belépés", exact: true }).click();
-  await expect(page.getByText("Hibás e-mail-cím vagy jelszó.", { exact: true })).toBeVisible();
+  await expect(page.getByRole("alert").filter({ hasText: "Hibás e-mail-cím vagy jelszó." })).toBeVisible();
   await page.getByLabel("Jelszó", { exact: true }).fill(nextPassword);
   await page.getByRole("button", { name: "Belépés", exact: true }).click();
   await expect(page).toHaveURL(/\/attekintes$/);

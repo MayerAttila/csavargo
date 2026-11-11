@@ -47,6 +47,17 @@ A visszaállítás minden korábbi munkamenetet érvénytelenít.
 A fejlesztői levelek a [Mailpit postaládában](http://localhost:8025) jelennek meg; nem mennek külső címzettekhez.
 Az SMTP a `127.0.0.1:1025` címen érhető el. A böngésző az `/api` útvonalon, a frontenddel azonos originen hívja a Fastify API-t.
 
+Windows alatt, ha a helyi natív PostgreSQL-klaszter már inicializálva van a `.local/postgres` könyvtárban,
+a gép újraindítása után a fő repository gyökeréből így indítható újra:
+
+```powershell
+pg_ctl -D .local/postgres -l .local/postgres.log -o "-p 5432 -h 127.0.0.1" start
+Start-Process -FilePath .local/bin/mailpit.exe -WindowStyle Hidden -ArgumentList '--listen','127.0.0.1:8025','--smtp','127.0.0.1:1025'
+```
+
+A `.local` könyvtár helyi adatokat és futtatható fájlokat tartalmaz, Git által ignorált. Ez a Docker Compose helyi alternatívája;
+a két PostgreSQL-példányt ne indítsd egyszerre ugyanazon a porton. A backend `.env` kapcsolati adatai egyezzenek a használt adatbázissal.
+
 Részletes konfiguráció és üzembe helyezés: [auth útmutató](docs/auth.md).
 
 ## Ellenőrzés
