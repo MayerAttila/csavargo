@@ -26,6 +26,19 @@ test("anonymous dashboard redirects before showing private content", async ({ pa
   await expect(page.getByRole("heading", { name: "Üdv újra!" })).toBeVisible();
 });
 
+test("V10: JavaScript-disabled registration never exposes credentials in a GET", async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  try {
+    const page = await context.newPage();
+    await page.goto("http://localhost:3100/regisztracio");
+    await expect(page.locator("form")).toHaveAttribute("method", "post");
+    await expect(page.getByLabel("Jelszó", { exact: true })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "Űrlap betöltése…" })).toBeDisabled();
+    await expect(page.getByRole("alert").filter({ hasText: "engedélyezd a JavaScriptet" })).toBeVisible();
+    expect(new URL(page.url()).search).toBe("");
+  } finally { await context.close(); }
+});
+
 test("complete Hungarian email auth lifecycle", async ({ page, request, browser }) => {
   const email = `e2e-${randomUUID()}@example.com`;
   const password = "Csavargo-e2e-password-123";

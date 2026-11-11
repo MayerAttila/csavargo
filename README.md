@@ -39,7 +39,7 @@ A VS Code `Tasks: Run Task` → `Run backend + frontend` művelete külön termi
 
 ## Bejelentkezés és e-mail
 
-A `/regisztracio` oldalon névvel, e-mail-címmel és 12–128 karakteres jelszóval hozhatsz létre fiókot.
+A `/regisztracio` oldalon névvel, e-mail-címmel és 8–128 karakteres jelszóval hozhatsz létre fiókot.
 A regisztráció azonnal beléptet a `/attekintes` oldalra. Az e-mail-cím megerősítése opcionális;
 az áttekintő oldalon új megerősítő levél kérhető. A `/belepes` oldalról jelszó-visszaállítás indítható.
 A visszaállítás minden korábbi munkamenetet érvénytelenít.
