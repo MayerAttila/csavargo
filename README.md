@@ -36,6 +36,10 @@ http://localhost:3000 · Backend: http://localhost:3001/health.
 A `Ctrl+C` mindkét fejlesztői szervert leállítja.
 
 A VS Code `Tasks: Run Task` → `Run backend + frontend` művelete külön terminálban indítja a két alkalmazást.
+A gyökér `pnpm dev` és a VS Code backend task előbb ellenőrzi/elindítja a PostgreSQL-t és a Mailpitet,
+majd lefuttatja a migrációkat. A már inicializált Windows `.local/postgres` klasztert használja, egyébként Docker Compose-ot.
+Külön szolgáltatásindítás a fő repositoryból: `pnpm dev:services`.
+Ha közvetlenül a `csavargo-api` mappában indítasz `pnpm dev`-et, a helyi szolgáltatásokat előtte indítsd el.
 
 ## Bejelentkezés és e-mail
 

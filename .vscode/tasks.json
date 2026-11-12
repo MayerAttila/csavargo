@@ -2,6 +2,13 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "Start local services",
+      "type": "shell",
+      "command": "pnpm dev:prepare",
+      "options": { "cwd": "${workspaceFolder}" },
+      "problemMatcher": []
+    },
+    {
       "label": "Run backend + frontend",
       "dependsOn": ["Run backend", "Run frontend"],
       "dependsOrder": "parallel",
@@ -9,6 +16,7 @@
     },
     {
       "label": "Run backend",
+      "dependsOn": ["Start local services"],
       "type": "shell",
       "command": "pnpm dev",
       "options": {

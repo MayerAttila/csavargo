@@ -2,7 +2,9 @@
   "name": "csavargo",
   "private": true,
   "scripts": {
-    "dev": "concurrently --kill-others --names api,web \"pnpm --dir csavargo-api dev\" \"pnpm --dir csavargo-web dev\"",
+    "dev": "pnpm dev:prepare && concurrently --kill-others --names api,web \"pnpm --dir csavargo-api dev\" \"pnpm --dir csavargo-web dev\"",
+    "dev:services": "node scripts/dev-services.mjs",
+    "dev:prepare": "pnpm dev:services && pnpm --dir csavargo-api db:deploy",
     "test:e2e": "playwright test",
     "contract:generate": "pnpm --dir csavargo-api contract:export && pnpm --dir csavargo-web contract:generate"
   },

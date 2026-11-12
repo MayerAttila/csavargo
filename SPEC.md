@@ -26,8 +26,9 @@ V9: auth request logs redact token path segments & query values.
 V10: auth forms POST; controls disabled before hydration; credentials never submitted through native GET fallback.
 V11: login/signup confirms fresh session before full `/attekintes` navigation; logout clears private queries before full `/belepes` navigation.
 V12: `(public)`/`(protected)` groups preserve URLs; protected layout + private-data pages require server session; memoization scoped to server request.
-V13: one app-wide React Hot Toast; shared success/error/loading/promise API; automatic safe query/mutation/page errors; field validation inline; navigation success notice one-shot/static code only; blocked storage never blocks navigation.
+V13: one app-wide React Hot Toast; shared success/error/loading/promise API; automatic safe query/mutation/page errors; form validation/outcomes toast-only + aria-invalid; navigation success notice one-shot/static code only; blocked storage never blocks navigation.
 V14: auth errors use known safe codes + HTTP status + operation-specific Hungarian fallback; origin/name/unavailable failures have machine codes; internal server messages never displayed.
+V15: root/VS Code development startup ensures DB + SMTP availability and migrations before backend; service startup idempotent.
 
 ## §T
 id|status|task|cites
@@ -40,6 +41,8 @@ T5|x|confirm session; fresh protected-page/logout navigation; leave uncommitted|
 T6|x|split public/protected route groups; shared server guard; leave uncommitted|V1,V7,V12,I.web
 T7|x|app-wide notifications + query/mutation/page errors + cross-navigation auth notices; leave uncommitted|V5,V11,V13,I.web
 T8|x|specific auth errors in forms/toasts; backend error codes; leave uncommitted|V5,V14,I.auth,I.web
+T9|x|remove duplicate inline form/dashboard notices; validation via toast; leave uncommitted|V5,V13,I.web
+T10|x|automatic local services + migrations before backend; verify live auth; leave uncommitted|V1,V6,V15,I.env
 
 ## §B
 id|date|cause|fix
@@ -51,3 +54,4 @@ B4|2026-11-10|Better Auth cookie-free login skips foreign Origin rejection|expli
 B5|2026-11-10|reset token embedded in path survived query stripping|redact token path; V9
 B6|2026-11-11|Playwright alert selector also matched Next route announcer|target exact Hungarian error text; V5
 B7|2026-11-11|auth form default GET allowed pre-hydration submission; credentials entered URL/logs; API bypassed|POST + hydration guard; V10
+B8|2026-11-12|root tasks started API without DB after reboot; auth limiter query failed|service startup dependency; V15
