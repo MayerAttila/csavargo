@@ -1,4 +1,4 @@
-import { existsSync, openSync, closeSync } from "node:fs";
+import { existsSync, openSync, closeSync, readFileSync } from "node:fs";
 import { createConnection } from "node:net";
 import { spawn, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -22,6 +22,12 @@ function run(command, args) {
   if (result.error || result.status !== 0) throw new Error(`Local service command failed: ${command}. See the startup output above.`);
 }
 
+function postgresControl(data) {
+  const version = readFileSync(join(data, "PG_VERSION"), "utf8").trim();
+  const installed = join(process.env.ProgramFiles ?? "C:\\Program Files", "PostgreSQL", version, "bin", "pg_ctl.exe");
+  return existsSync(installed) ? installed : "pg_ctl";
+}
+
 async function main() {
   const envFile = join(root, "csavargo-api", ".env");
   if (existsSync(envFile)) process.loadEnvFile(envFile);
@@ -36,7 +42,7 @@ async function main() {
   if (!await listening(host, port)) {
     if (native) {
       console.log("Starting project-local PostgreSQL...");
-      run("pg_ctl", ["-D", data, "-l", join(root, ".local", "postgres.log"), "-o", `-p ${port} -h ${host}`, "start"]);
+      run(postgresControl(data), ["-D", data, "-l", join(root, ".local", "postgres.log"), "-o", `-p ${port} -h ${host}`, "start"]);
     } else if (localDatabase) {
       console.log("Starting PostgreSQL and Mailpit with Docker Compose...");
       run("docker", ["compose", "up", "-d", "--wait"]);

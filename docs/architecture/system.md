@@ -17,3 +17,15 @@ The root repository contains the web and API as Git submodules. Start PostgreSQL
 Fastify/Zod schemas are the source of truth. The API exports `contracts/openapi.v1.json`; root `pnpm contract:generate` regenerates frontend TypeScript types with `openapi-typescript`. The initial authenticated business endpoint is `GET /api/me`. Better Auth's own routes use its version-aligned client rather than duplicated DTOs.
 
 Auth uses PostgreSQL-backed sessions and rate limits, optional email verification, and session revocation on password reset. Hungarian React Email templates are delivered through SMTP/Mailpit locally and Resend in production. See [auth setup](../auth.md).
+
+## Maps
+
+The protected `/terkep` sandbox composes reusable components from `src/components/maps` in the web repository.
+`MapCanvas` accepts controlled `MapPoint` data (`[longitude, latitude]`), selection/click callbacks, basemap and camera commands.
+It loads Mapbox GL only in the browser, owns its instance/resources, observes container resizing and preserves camera/markers during style changes.
+The sandbox owns temporary points; it can be removed without changing the map components. No API or database changes are involved.
+
+Search Box suggestions/retrieval use a public URL-restricted `NEXT_PUBLIC_MAPBOX_TOKEN` directly from the browser,
+Hungarian language, debouncing, cancellation and short-lived search sessions. Results remain in component memory;
+there is no persistent browser or server storage. A future saved-places feature must first revisit the provider's storage terms.
+Unit tests mock the SDK and Search Box endpoints; real map/search verification requires a configured public token.
